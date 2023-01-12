@@ -346,7 +346,10 @@
     <div id="sidepanel" style="display: flex; position: absolute; top: 5px; left:70%; ">
         <div style="display:flex; flex-direction: column;">
             <button id="formatFlight">🍞</button>
-            <button id="closeSidePanel">❌</button>
+            <!-- <button id="closeSidePanel">❌</button> -->
+
+            <button id="sell" type="button" name="button" class="is-primary" py-onclick="sell()">🍞</button>
+            <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button>
         </div>
         <textarea id="formattingFlight" placeholder="UA0123 11SEP MCOJFK 2359 0159" style="background-color: rgb(140, 221, 221); width: 314px; height: 142px; max-width: 323px; max-height: 300px;"></textarea>
 
@@ -382,7 +385,7 @@
 div_pyscript.innerHTML += 
 `
 <py-script>
-_text = Element("input_text")
+_text = Element("formattingFlight")
 _output = Element("output")
 
 
@@ -892,7 +895,7 @@ class sell_this_flight(object):
 
 
 
-#_text = Element("input_text")
+#_text = Element("formattingFlight")
 
 #_output = Element("output")
 
@@ -940,17 +943,13 @@ def sell(*args, **kwargs):
       <!-- <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
       <script defer src="https://pyscript.net/latest/pyscript.js"></script>  -->
 
-      <div style="display:flex; flex-direction: column;">
-        <button id="sell" type="button" name="button" class="is-primary" py-onclick="sell()">🍞</button>
-          <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button>
-      </div>
 
-      <textarea name="input_text" id="input_text" placeholder="Enter a string..." rows="8" cols="80" style="background-color: rgb(140, 221, 221); width: 356px; height: 126px; max-width: 323px; max-height: 300px;"></textarea>
+      <!-- <textarea name="formattingFlight" id="formattingFlight" placeholder="Enter a string..." rows="8" cols="80" style="background-color: rgb(140, 221, 221); width: 356px; height: 126px; max-width: 323px; max-height: 300px;"></textarea> -->
       <pre name="OP" id="OP" placeholder="Awaiting orders..." rows="8" cols="80"></pre>
 
 
       <!-- <py-script>
-        _text = Element("input_text")
+        _text = Element("formattingFlight")
         
         _output = Element("output")
         
@@ -1461,7 +1460,7 @@ def sell(*args, **kwargs):
         
         
         
-        #_text = Element("input_text")
+        #_text = Element("formattingFlight")
         
         #_output = Element("output")
         
@@ -1621,12 +1620,13 @@ def sell(*args, **kwargs):
         const input_ = document.getElementById('formattingFlight')
         const closing_ = document.getElementById('closeSidePanel')
 
-        closing_.addEventListener('click', (e)=>
-        {
-            input_.value = ""
+        // See 'clearing()'
+        // closing_.addEventListener('click', (e)=>
+        // {
+        //     input_.value = ""
 
-        }
-        )
+        // }
+        // )
 
 
         document.getElementById('formatFlight').addEventListener( 'click', (e)=>
