@@ -947,8 +947,24 @@ def sell(*args, **kwargs):
 
 
       <!-- <textarea name="formattingFlight" id="formattingFlight" placeholder="Enter a string..." rows="8" cols="80" style="background-color: rgb(140, 221, 221); width: 356px; height: 126px; max-width: 323px; max-height: 300px;"></textarea> -->
-      <pre name="OP" id="OP" placeholder="Awaiting orders..." rows="8" cols="80"></pre>
 
+      <div contenteditable="False" style="background-color: #0090ff;">
+
+
+        <pre name="OP" id="OP" placeholder="Awaiting orders..." rows="8" cols="80" class="verbiageBtn" style="background-color: #49a6e9; width: auto;"></pre>
+
+        <script>
+
+          document.getElementById('OP').addEventListener('click', (e)=>{
+            navigator.clipboard.writeText(document.getElementById('OP').textContent)
+            //console.log(document.getElementById('OP').textContent);
+
+
+          })
+
+
+        </script>
+      </div>
 
       <!-- <py-script>
         _text = Element("formattingFlight")
