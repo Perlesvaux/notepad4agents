@@ -348,7 +348,7 @@
             <button id="formatFlight">🍞</button>
             <!-- <button id="closeSidePanel">❌</button> -->
 
-            <button id="sell" type="button" name="button" class="is-primary" py-onclick="sell()">🍞</button>
+            <button id="sell" type="button" name="button" class="is-primary" py-onclick="sell()">🚀</button>
             <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button>
         </div>
         <textarea id="formattingFlight" placeholder="UA0123 11SEP MCOJFK 2359 0159" style="background-color: rgb(140, 221, 221); width: 314px; height: 142px; max-width: 323px; max-height: 300px;"></textarea>
@@ -915,14 +915,16 @@ _OP = Element("OP")
 
 def sell(*args, **kwargs):
     #_output.write(sell_this_flight(_text.value).result())
-    maozedong = sell_this_flight(_text.value).result()
+
+    try:
+      maozedong = sell_this_flight(_text.value).result()
+      _OP.write(maozedong)
+    except IndexError:
+      pass
 
 
-  #_OP.innerText = maozedong
-  #_OP.element.innerText = maozedong
-  #pyscript.write('test-output', text)
-  #pyscript.write('OP', maozedong)
-    _OP.write(maozedong)
+  
+    
 
         
         
