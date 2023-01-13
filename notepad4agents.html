@@ -1671,7 +1671,7 @@ def sell(*args, **kwargs):
 
       #Click2CopyVerbiages{
           position: fixed;
-          bottom:20%;
+          bottom:15%;
           display: grid;
           column-width: 30px;
           background-color: rgb(127, 236, 255);
@@ -1963,17 +1963,43 @@ def sell(*args, **kwargs):
 
 </div>
 
+<div style="display: block; margin: auto;">
+<div contenteditable="False" style="display:flex; flex-direction: row;">
 
-    
-<textarea id="notepad" placeholder=" —Notes go here! 
- 
- Customize tabs below &amp; save your progress: CTRL+S 
- 
- Screenshot: Shift+Ctrl+S (Edge &amp; Firefox) or Shift+Win+S 
- 
- Paste only text: CTRL+Shift+V " style="height: 279px; width: 771px; font-size: 16px;"></textarea>
-
+  <!-- position: absolute; top: 5px; left:70%;  -->
   
+    <div style="display:flex; flex-direction: column;">
+        <button id="clear-pink-notepad">❌</button>
+        <button id="fsu-pink-notepad">➕</button>
+        <button id="fsd-pink-notepad">➖</button>
+    </div>
+  
+
+  <script>
+    document.getElementById('clear-pink-notepad').addEventListener('click', ()=>{
+      document.getElementById('notepad').value = ""
+    })
+
+    document.getElementById('fsu-pink-notepad').addEventListener('click', ()=>{
+      let fs = document.getElementById('notepad') //.style.fontSize +=1
+    })
+    
+    document.getElementById('fsd-pink-notepad').addEventListener('click', ()=>{
+      let fs = document.getElementById('notepad') //.style.fontSize -=1
+      console.log(fs.style.fontSize);
+    })
+
+  </script>
+
+  <textarea id="notepad" placeholder=" —Notes go here! 
+  
+  Customize tabs below &amp; save your progress: CTRL+S 
+  
+  Screenshot: Shift+Ctrl+S (Edge &amp; Firefox) or Shift+Win+S 
+  
+  Paste only text: CTRL+Shift+V " style="height: 279px; width: 771px; font-size: 16px;"></textarea>
+</div>
+</div>
 
 
   <section class="section">
