@@ -273,10 +273,10 @@
 
 
    
-
+    /* removed font-size from here! */
     #notepad
     {
-      max-width: 98%;min-width: 65%; height: 12rem; padding: .5rem .5rem .5rem .5rem; margin: .5rem .5rem .5rem .5rem; font-size:0.9rem; background-color:#ffb3b3; 
+      max-width: 98%;min-width: 65%; height: 12rem; padding: .5rem .5rem .5rem .5rem; margin: .5rem .5rem .5rem .5rem; background-color:#ffb3b3;  
     }
         
     #scratchpad
@@ -325,6 +325,8 @@
     #dC input {width: 7rem;}
 
   </style>
+
+<!-- may delete this later  -->
 <script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="./notepad4agents_files/pyodide.js"></script></head>
 
 
@@ -1607,7 +1609,7 @@ def sell(*args, **kwargs):
             
             let nbrs = /[0-9a-zA-Z][0-9a-zA-Z][0-9][0-9][0-9][0-9]/g
             let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
-            let routes = /[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]/g
+            let routes = /[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]/g // [A-Z]{6}
             let scheds = /[0-2][0-9][0-5][0-9][ ][0-2][0-9][0-5][0-9]/g
 
 
@@ -1975,21 +1977,7 @@ def sell(*args, **kwargs):
     </div>
   
 
-  <script>
-    document.getElementById('clear-pink-notepad').addEventListener('click', ()=>{
-      document.getElementById('notepad').value = ""
-    })
 
-    document.getElementById('fsu-pink-notepad').addEventListener('click', ()=>{
-      let fs = document.getElementById('notepad') //.style.fontSize +=1
-    })
-    
-    document.getElementById('fsd-pink-notepad').addEventListener('click', ()=>{
-      let fs = document.getElementById('notepad') //.style.fontSize -=1
-      console.log(fs.style.fontSize);
-    })
-
-  </script>
 
   <textarea id="notepad" placeholder=" —Notes go here! 
   
@@ -1998,6 +1986,36 @@ def sell(*args, **kwargs):
   Screenshot: Shift+Ctrl+S (Edge &amp; Firefox) or Shift+Win+S 
   
   Paste only text: CTRL+Shift+V " style="height: 279px; width: 771px; font-size: 16px;"></textarea>
+
+  <script>
+    document.getElementById('clear-pink-notepad').addEventListener('click', ()=>{
+      document.getElementById('notepad').value = ""
+      
+    })
+
+
+    const bu = document.getElementById('fsu-pink-notepad')
+    const bd = document.getElementById('fsd-pink-notepad')
+    const no = document.getElementById('notepad')
+    
+    let cfs = parseFloat(no.style.fontSize.match(/\d+/)[0])
+    
+    bu.addEventListener('click', ()=>{
+      //document.getElementById('notepad').style.fontSize = `${parseFloat(document.getElementById('notepad').style.fontSize.match(/\d+/)[0])+0.5}px`
+      cfs+=0.5 //float //Current font size
+      const nfs = `${cfs}px` //string // New font size
+      return no.style.fontSize = nfs
+    })
+    
+    bd.addEventListener('click', ()=>{
+      cfs-=0.5 //float //Current font size
+      const nfs = `${cfs}px` //string // New font size
+      return no.style.fontSize = nfs
+    })
+
+  </script>
+
+
 </div>
 </div>
 
