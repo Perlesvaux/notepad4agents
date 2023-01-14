@@ -377,32 +377,31 @@
         lnk_pyscript.rel="stylesheet"
         
 
-        try {
-          lnk_pyscript.href="https://pyscript.net/latest/pyscript.cssss"
-        }
-        catch(err) {
-          lnk_pyscript.href="./pyscript.css"
-          console.error(`${err}: used local .css file!`);
-        }
-
-
-
-
+      
+        //lnk_pyscript.href="https://pyscript.net/latest/pyscript.css"
+        lnk_pyscript.href="./pyscript.css"
+      
+      
         const scr_pyscript = document.createElement("script")
         scr_pyscript.defer = true
+        scr_pyscript.src = "./pyscript.js"
+        //scr_pyscript.src = "https://pyscript.net/latest/pyscript.js
 
         
-        async function fetchPromise (){
-          const fetched = await fetch("https://pyscript.net/latest/pyscript.jss")
-          if (fetched.ok) {
-            console.log("works! OMG its lit me")
-            scr_pyscript.src = "https://pyscript.net/latest/pyscript.jss"
-          } else {
-            console.log('resource not found!');
-            scr_pyscript.src = "./pyscript.js"
-          }}
+        // async function fetchPromise (){
+        //   let fetched = await fetch("https://pyscript.net/latest/pyscript.jss")
+        //   if (fetched.ok) {
+        //     console.log("works! OMG its lit me")
+        //     scr_pyscript.src = "https://pyscript.net/latest/pyscript.jss"
+        //   } else {
+        //     console.log('resource not found!');
+        //     scr_pyscript.src = "./pyscript.js"
+        //     console.log(scr_pyscript.src);
+        //   }}
         
-        fetchPromise()
+        // fetchPromise()
+
+        //console.log(scr_pyscript.src);
         //console.log(fetchPromise);
         
         
