@@ -327,7 +327,7 @@
   </style>
 
 <!-- may delete this later  -->
-<script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="./notepad4agents_files/pyodide.js"></script></head>
+<!-- <script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="./notepad4agents_files/pyodide.js"></script></head> -->
 
 
 <body>
@@ -361,8 +361,8 @@
 
     <div id="pythonScript" style="display: flex; position: absolute; top: 180px; left:70%; ">
       
-      <div id="pythonScriptDependencies"><link rel="stylesheet" href="./notepad4agents_files/pyscript.css"><script defer="" src="./notepad4agents_files/pyscript.js"></script>
-<py-script id="py-internal-0"></py-script>
+      <div id="pythonScriptDependencies">
+
 
 </div>
 
@@ -2286,6 +2286,8 @@ function showClearCalcBtn()
       document.querySelector(".btn-container").innerHTML = ""
       document.querySelector(".about-content").innerHTML = ""
       
+      document.getElementById("pythonScriptDependencies").innerHTML = "" //let's see if it doesn't break --fingers crossed!
+
       alert('Close/reload this tab after saving! 💾')
 
     }
