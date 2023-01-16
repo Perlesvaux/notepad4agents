@@ -898,8 +898,16 @@ class sell_this_flight(object):
         AH= [re.findall('\\d+:', x)[0].strip(':') for x in _arrivals]
         AM= [re.findall(':\\d+', x)[0].strip(':') for x in _arrivals]
 
-        LH = [re.findall('\\d+', x)[0] for x in layovers]
-        LM = [re.findall('\\d+', x)[1] for x in layovers]
+        #LH = [re.findall('\\d+', x)[0] for x in layovers]
+        #LM = [re.findall('\\d+', x)[1] for x in layovers]
+
+
+        try:
+          LH = [re.findall('\\d+', x)[0] for x in layovers]
+          LM = [re.findall('\\d+', x)[1] for x in layovers]
+        except IndexError:
+          LH = ['0'] 
+          LM = [re.findall('\\d+', x)[0] for x in layovers]
 
         for i, val in enumerate(layovers): #limit is set by number of connections
             posterior.append(datetime.strftime(initial + timedelta(days=int(additional_dates[i])) + timedelta(hours=int(AH[i]), minutes=int(AM[i])) + timedelta(hours=int(LH[i]), minutes=int(LM[i])), '%d%b')) #=Sum of date, arrival & connection time
@@ -949,6 +957,7 @@ def sell(*args, **kwargs):
       maozedong = sell_this_flight(_text.value).result()
       _OP.write(maozedong)
     except IndexError:
+      #print(sell_this_flight(_text.value).result())
       pass
 
 
