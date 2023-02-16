@@ -348,10 +348,10 @@
     <div id="sidepanel" style="display: flex; position: absolute; top: 5px; left:70%; ">
         <div style="display:flex; flex-direction: column;">
             <button id="formatFlight">🍞</button>
-            <!-- <button id="closeSidePanel">❌</button> -->
+            <button id="closeSidePanel">❌</button>
 
             <button id="sell" type="button" name="button" class="is-primary" py-onclick="sell()">🚀</button>
-            <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button>
+            <!-- <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button> -->
         </div>
         <textarea id="formattingFlight" placeholder="UA0123 11SEP MCOJFK 2359 0159" style="background-color: rgb(140, 221, 221); width: 314px; height: 142px; max-width: 323px; max-height: 300px;"></textarea>
 
@@ -424,10 +424,10 @@ def count(*args, **kwargs):
     number = len(_text.value)
     _output.write(number)
 
-def clearing(*args, **kwargs):
-    _text.clear()
-    _output.clear()
-    _OP.clear()
+# def clearing(*args, **kwargs):
+#     _text.clear()
+#     _output.clear()
+#     _OP.clear()
 
 def sech(*args, **kwargs):
     _output.write('y ahora todo cambio D:')
@@ -1673,16 +1673,24 @@ def sell(*args, **kwargs):
 
 
         // *** main ***
-        const input_ = document.getElementById('formattingFlight')
-        const closing_ = document.getElementById('closeSidePanel')
+        const input_ =    document.getElementById('formattingFlight')
+        const closing_ =  document.getElementById('closeSidePanel')
+        const OP_ =       document.getElementById('OP')
 
-        // See 'clearing()'
-        // closing_.addEventListener('click', (e)=>
-        // {
-        //     input_.value = ""
+        //See 'clearing()'
+        closing_.addEventListener('click', (e)=>
+        {
+            input_.value = ""
+            
+            OP_.textContent = ""
 
-        // }
-        // )
+            //_output.value = ""
+            //t = Element("formattingFlight")
+            
+
+
+        }
+        )
 
 
         document.getElementById('formatFlight').addEventListener( 'click', (e)=>
