@@ -329,28 +329,9 @@ function sell (schedule)
         const _day1         = _date1[0].match(/[A-Z][a-z][a-z] \d+/)[0]
         //const _day1         = `${_date1.join().match(/[A-Z][a-z][a-z] \d+/g)[0].split(' ')[1]} ${_date1.join().match(/[A-Z][a-z][a-z] \d+/g)[0].split(' ')[0]}` //.join().match(/s/g) // i.e.: 31 Mar
         const _date2        = schedule.match(date2)
-        
+              
 
-
-        //const _
-        
-        // //const _date2        = schedule.match(date2)
-        // const  _date2       = schedule.match(date2).filter(function(x){x.match(/[A-Z][A-Z][A-Z]/g)})
-        // console.log(_date2);
-
-
-
-        // this._date2 = [re.findall('[A-Z][A-Z][A-Z]', x)[0] for x in re.findall(self.date2, schedule)]
-        // this._date1 = re.findall(self.date1, schedule)
-        
-        
-        // this._departure = re.findall(self.re_departure, schedule)#[0].strip("Arrival")
-        // this._arrival = re.findall(self.re_arrival, schedule)#[0].strip("Arrival")
-        // this._layovers = re.findall(self.layovers, schedule)
-        // this._day1 = re.findall('[A-Z][a-z][a-z] \d+', self._date1[0])[0] #print (day1) #Jan 4
-        
-
-        function calculate_arrival_date(date_input, days_of_commuting)
+        function calculate_arrival_date(date_input, phours, pmins)
         {
 
             if (date_input === '') {
@@ -359,7 +340,10 @@ function sell (schedule)
 
             // If you don't say how many days to add, days_of_commuting.value is '', which will be converted to 0 right below, so no worries.
 
-            const days_until_arrival = Number(days_of_commuting)
+            /////const days_until_arrival = Number(days_of_commuting)
+
+            const hours = Number(phours)
+            const mins  = Number(pmins)
 
             // ! In the next code line, if you don't specify a time, the Date constructor thinks its input string represents a date in UTC instead of your local time. Why that would be bad?:
 
@@ -367,111 +351,63 @@ function sell (schedule)
 
             const arrival_date = new Date(`${date_input} ${new Date().getFullYear()}`)
 
+            
 
-            arrival_date.setDate(
-                arrival_date.getDate()
-                + days_until_arrival
+
+            // arrival_date.setDate(
+            //     arrival_date.getDate()
+            //     + days_until_arrival
+            // )
+
+
+            arrival_date.setTime(
+                arrival_date.getTime()
+                + mins * 60 * 1000
+            ) 
+            console.log(arrival_date);
+
+            
+            arrival_date.setTime(
+                arrival_date.getTime()
+                + hours * 60 * 60 * 1000 
+                
             )
 
+
+            
+
+            console.log(arrival_date);
             // In case you think you entered a number when you didn't, I'll let you know if no days were added:
 
-            return days_until_arrival === 0
-                ? `${arrival_date.toDateString()} (no days added!)`
-                : arrival_date.toDateString()
-        }
 
+            return arrival_date.toDateString()
+                
+                
 
-        function  ordered_dates()
-        {
-
-
-            // first, arrivals,  layovers, cities, nextday_departures = self._day1, self._arrival, self._layovers, self._cities, self._date2
-
-            const first     = _day1
-            const arrivals  = _arrival
-            const layovers  = _layovers
-            const cities    = _date2
-
-
-            console.log(first);
-            console.log(arrivals);
-            console.log(layovers);
-            console.log(cities);
+            // return days_until_arrival === 0
+            //     ? `${arrival_date.toDateString()} (no days added!)`
+            //     : arrival_date.toDateString()
+        }      
 
 
 
+        //console.log(calculate_arrival_date(_day1, 22, 50))
 
-            // const additional_dates = []
-
-            // let nodupe = [] //each city appears a single time
-
-            // for (x in cities) {console.log(x)}
-            // console.log(cities);
-
-
-
-
-            // for x in cities:
-            //     if x not in nodupe:
-            //         nodupe.append(x)
-
-
-            // for x in nodupe:
-
-            //     #puts a +1 on every index at which a day-change occurs #[0, 1, 0]
-            //     if x in nextday_departures:
-            //         additional_dates.append(1)
-            //     else:
-            //         additional_dates.append(0)
-
-            // additional_dates.pop(0)
-
-
-
-            // initial = datetime.strptime(f"{first}{datetime.now().year}", '%b %d%Y')
-            // _arrivals = [datetime.strftime(datetime.strptime(re.findall("\d+:\d+am|\d+:\d+pm", x)[0],"%I:%M%p"), "%H:%M") for x  in arrivals] #['09:30', '13:10'] from ['Arrival9:30am', 'Arrival1:10pm']
-
-
-            // definitive = []
-            // posterior = [] #departure date of each following flight
-
-            // definitive.append(datetime.strftime(initial, '%d%b'))
-
-
-            // AH= [re.findall('\d+:', x)[0].strip(':') for x in _arrivals]
-            // AM= [re.findall(':\d+', x)[0].strip(':') for x in _arrivals]
-
-            // try:
-            //     LH = [re.findall('\d+', x)[0] for x in layovers]
-            //     LM = [re.findall('\d+', x)[1] for x in layovers]
-            // except IndexError:
-            //     LH = ['0'] 
-            //     LM = [re.findall('\d+', x)[0] for x in layovers]
-
-
-            // print(LH, LM)
-
-            // for i, val in enumerate(layovers): #limit is set by number of connections
-            //     posterior.append(datetime.strftime(initial + timedelta(days=int(additional_dates[i])) + timedelta(hours=int(AH[i]), minutes=int(AM[i])) + timedelta(hours=int(LH[i]), minutes=int(LM[i])), '%d%b')) #=Sum of date, arrival & connection time
-            //     initial = datetime.strptime(posterior[i], '%d%b') #Next iteration's "initial" is updated
-
-            // #posterior.sort() #I think it's useless here...
-
-            // definitive.extend(posterior)
-            // return definitive
-        }
-
-
-
-        console.log(calculate_arrival_date(_day1, 4))
-        //ordered_dates()
-
-        // console.log(_date1);
-        // console.log(_day1);
-        // console.log(_date2);
-        // console.log(_cities);
-        // console.log(`${_layovers}**lay`);
         
+
+        try {
+            for (x of _layovers) {
+            let hh = x.match(/\d+(?=h)/);
+            let mm = x.match(/\d+(?=m)/);
+            console.log(calculate_arrival_date(_day1, hh, mm))
+        }
+        } catch (error) {
+         console.log('Direct flight!');   
+        }
+        
+
+        
+
 
         let first_city  = 0
         let second_city = 1
@@ -511,114 +447,114 @@ function sell (schedule)
 
 
 
-    console.log(sell(`
-San Salvador to New York
-5:40am - 2:59pm (8h 19m, 1 stop)5:40am through 2:59pm (8h 19m, 1 stop)
+//     console.log(sell(`
+// San Salvador to New York
+// 5:40am - 2:59pm (8h 19m, 1 stop)5:40am through 2:59pm (8h 19m, 1 stop)
 
-American Airlines • Fri, Mar 31
-Departure5:40am - San Salvador
-El Salvador Intl. (SAL)
+// American Airlines • Fri, Mar 31
+// Departure5:40am - San Salvador
+// El Salvador Intl. (SAL)
 
-3h 39m flight
-American Airlines 1408
-Boeing 737-800
-Economy/Coach (S)
-Arrival10:19am - Miami
-Miami Intl. (MIA)
+// 3h 39m flight
+// American Airlines 1408
+// Boeing 737-800
+// Economy/Coach (S)
+// Arrival10:19am - Miami
+// Miami Intl. (MIA)
 
-Layover: 1h 40m in Miami
-Departure11:59am - Miami
-Miami Intl. (MIA)
+// Layover: 1h 40m in Miami
+// Departure11:59am - Miami
+// Miami Intl. (MIA)
 
-3h flight
-American Airlines 1479
-Boeing 737 MAX 8
-Economy/Coach (S)
-Arrival2:59pm - New York
-John F. Kennedy Intl. (JFK)
+// 3h flight
+// American Airlines 1479
+// Boeing 737 MAX 8
+// Economy/Coach (S)
+// Arrival2:59pm - New York
+// John F. Kennedy Intl. (JFK)
 
-Hide details
+// Hide details
 
-`))
-
-
+// `))
 
 
 
 
 
-console.log(sell(`
-San Salvador to New York
-12:03pm - 11:42am (22h 39m, 1 stop)12:03pm through 11:42am (22h 39m, 1 stop)+1Arrives Sat, Apr 1
-
-American Airlines • Fri, Mar 31
-Departure12:03pm - San Salvador
-El Salvador Intl. (SAL)
-
-3h 39m flight
-American Airlines 1494
-Boeing 737-800
-Economy/Coach (G)
-Arrival4:42pm - Miami
-Miami Intl. (MIA)
-
-Layover: 16h in Miami
-Departure8:42am - Miami
-Miami Intl. (MIA)
-
-3h flight
-American Airlines 1831
-Economy/Coach (G)
-Arrival11:42am - New York
-John F. Kennedy Intl. (JFK)
-
-Hide details
-`))
 
 
-console.log(sell(    `
-Salt Lake City to Orlando
-6:40am - 1:00pm (4h 20m, nonstop)6:40am through 1:00pm (4h 20m, nonstop)
+// console.log(sell(`
+// San Salvador to New York
+// 12:03pm - 11:42am (22h 39m, 1 stop)12:03pm through 11:42am (22h 39m, 1 stop)+1Arrives Sat, Apr 1
 
-Delta • Wed, Feb 15
-Departure6:40am - Salt Lake City
-Salt Lake City Intl. (SLC)
+// American Airlines • Fri, Mar 31
+// Departure12:03pm - San Salvador
+// El Salvador Intl. (SAL)
 
-4h 20m flight
-Delta 2827
-Airbus A321WiFi, entertainment and power on this flight
-Economy/Coach (E)
-Arrival1:00pm - Orlando
-Orlando Intl. (MCO)
-`))
+// 3h 39m flight
+// American Airlines 1494
+// Boeing 737-800
+// Economy/Coach (G)
+// Arrival4:42pm - Miami
+// Miami Intl. (MIA)
+
+// Layover: 16h in Miami
+// Departure8:42am - Miami
+// Miami Intl. (MIA)
+
+// 3h flight
+// American Airlines 1831
+// Economy/Coach (G)
+// Arrival11:42am - New York
+// John F. Kennedy Intl. (JFK)
+
+// Hide details
+// `))
 
 
-console.log(sell(`
-San Salvador to New York
-5:40am - 11:42am (29h 2m, 1 stop)5:40am through 11:42am (29h 2m, 1 stop)+1Arrives Sat, Apr 1
+// console.log(sell(    `
+// Salt Lake City to Orlando
+// 6:40am - 1:00pm (4h 20m, nonstop)6:40am through 1:00pm (4h 20m, nonstop)
 
-American Airlines • Fri, Mar 31
-Departure5:40am - San Salvador
-El Salvador Intl. (SAL)
+// Delta • Wed, Feb 15
+// Departure6:40am - Salt Lake City
+// Salt Lake City Intl. (SLC)
 
-3h 39m flight
-American Airlines 1408
-Boeing 737-800
-Economy/Coach (S)
-Arrival10:19am - Miami
-Miami Intl. (MIA)
+// 4h 20m flight
+// Delta 2827
+// Airbus A321WiFi, entertainment and power on this flight
+// Economy/Coach (E)
+// Arrival1:00pm - Orlando
+// Orlando Intl. (MCO)
+// `))
 
-Layover: 22h 23m in Miami
-Departure8:42am - Miami
-Miami Intl. (MIA)
 
-3h flight
-American Airlines 1831
-Economy/Coach (S)
-Arrival11:42am - New York
-John F. Kennedy Intl. (JFK)
+// console.log(sell(`
+// San Salvador to New York
+// 5:40am - 11:42am (29h 2m, 1 stop)5:40am through 11:42am (29h 2m, 1 stop)+1Arrives Sat, Apr 1
 
-Hide details`));
+// American Airlines • Fri, Mar 31
+// Departure5:40am - San Salvador
+// El Salvador Intl. (SAL)
+
+// 3h 39m flight
+// American Airlines 1408
+// Boeing 737-800
+// Economy/Coach (S)
+// Arrival10:19am - Miami
+// Miami Intl. (MIA)
+
+// Layover: 22h 23m in Miami
+// Departure8:42am - Miami
+// Miami Intl. (MIA)
+
+// 3h flight
+// American Airlines 1831
+// Economy/Coach (S)
+// Arrival11:42am - New York
+// John F. Kennedy Intl. (JFK)
+
+// Hide details`));
 
 
 console.log(sell(
