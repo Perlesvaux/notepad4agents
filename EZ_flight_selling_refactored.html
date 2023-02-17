@@ -317,7 +317,10 @@ function sell (schedule)
         const re_departure  = /Departure\d+:\d+[a-z]+/g
         const re_arrival    = /Arrival\d+:\d+[a-z]+/g
         const layovers      = /Layover.*/g
-        
+        const duration      = /\d.* flight/g
+
+
+        const _duration     = schedule.match(duration)
         const _flight       = schedule.match(flight)
         const _cos          = schedule.match(cos)
         const _cities       = schedule.match(airports)
@@ -349,34 +352,23 @@ function sell (schedule)
 
             // If you enter december 31 in the calendar, when it gets converted to a date below, it would represent hour 0 (12 AM) of december 31 UTF, which is hour 18 (6 PM) of december 30 in our local time. The problem is that setDate(), used below, alters the LOCAL TIME DAY, so if you add 1 day of travel, you add it to december 30 (not to december 31 which was your input), thus you'd get the absurd output that if you depart on december 31 and arrive after 1 day, you arrive on the same day (december 31)...
 
-            const arrival_date = new Date(`${date_input} ${new Date().getFullYear()}`)
-
+            // const arrival_date = new Date(`${date_input} ${new Date().getFullYear()}`)
+            const arrival_date = new Date(`${date_input}`)
             
-
-
-            // arrival_date.setDate(
-            //     arrival_date.getDate()
-            //     + days_until_arrival
-            // )
-
-
             arrival_date.setTime(
                 arrival_date.getTime()
                 + mins * 60 * 1000
             ) 
-            console.log(arrival_date);
-
             
+            // console.log(arrival_date);
+
             arrival_date.setTime(
                 arrival_date.getTime()
                 + hours * 60 * 60 * 1000 
                 
             )
 
-
-            
-
-            console.log(arrival_date);
+            //console.log(arrival_date);
             // In case you think you entered a number when you didn't, I'll let you know if no days were added:
 
 
@@ -393,17 +385,89 @@ function sell (schedule)
 
         //console.log(calculate_arrival_date(_day1, 22, 50))
 
+        // console.log(_departure);
         
+        const firstdate = `${_day1} ${new Date().getFullYear()}`
+        let allDates = []
 
+        
         try {
-            for (x of _layovers) {
-            let hh = x.match(/\d+(?=h)/);
-            let mm = x.match(/\d+(?=m)/);
-            console.log(calculate_arrival_date(_day1, hh, mm))
-        }
+
+            const hours  = []
+            const mins   = []
+
+            for (i in _layovers){
+                // console.log(_duration[i]);
+                // console.log(_layovers[i]);
+
+                hours.push(eval(`${(_duration[i].match(/\d+(?=h)/) == null) ? 0 : _duration[i].match(/\d+(?=h)/)} + ${(_layovers[i].match(/\d+(?=h)/)==null) ? 0 : _layovers[i].match(/\d+(?=h)/)}`)) //${_layovers[i]}
+                mins.push(eval(`${(_duration[i].match(/\d+(?=m)/) == null) ? 0 : _duration[i].match(/\d+(?=m)/)} + ${(_layovers[i].match(/\d+(?=m)/)==null) ? 0 : _layovers[i].match(/\d+(?=m)/)}`))
+            }
+
+            console.log(hours);
+            console.log(mins);
+
+            // let ih = 0
+            // let im = 0
+            // let ilh = 0
+            // let ilm = 0
+            
+
+            
+            // for (x in _duration[0].match(/\d+/g)) { 
+            // ih = (_duration[0].match(/\d+(?=h)/g) == null) ? 0 : _duration[0].match(/\d+(?=h)/g)[0]
+            // im = (_duration[0].match(/\d+(?=m)/g) == null) ? 0 : _duration[0].match(/\d+(?=m)/g)[0]
+            // }
+
+            
+            // try{
+            //     for (x in _layovers[0].match(/\d+/g)){
+            //         ilm = (_layovers[0].match(/\d+(?=m)/g) == null) ? 0 : layovers[0].match(/\d+(?=m)/g)[0]
+            //         ilh = (_layovers[0].match(/\d+(?=h)/g) == null) ? 0 : layovers[0].match(/\d+(?=h)/g)[0]
+            //     }
+
+            // }catch(err){
+            //     ilh = 0
+            //     ilm = 0
+            // }
+
+            // console.log( ih,im,ilh,ilm);
+            // allDates.push(calculate_arrival_date(firstdate, ih+ilh, im+ilm))
+            // console.log(allDates);
+            
         } catch (error) {
-         console.log('Direct flight!');   
+            console.log(error);   
         }
+
+
+        // try {
+
+        //     let hh = 0
+        //     let mm = 0
+        //     let hhh = 0
+        //     let mmm = 0
+
+        //     console.log(_duration.length , _layovers.length);
+
+        //     for (let x in _layovers) {
+        //         console.log(_layovers[x]);
+        //         hh = (_duration[0].match(/\d+(?=h)/g) == null) ? 0 : _duration[0].match(/\d+(?=h)/g)[0]
+        //         mm = (_duration[0].match(/\d+(?=m)/g) == null) ? 0 : _duration[0].match(/\d+(?=m)/g)[0]
+
+        //         console.log(_duration[x]);
+        //         hhh = (_layovers[0].match(/\d+(?=h)/g) == null) ? 0 : layovers[0].match(/\d+(?=h)/g)[0]
+        //         mmm = (_layovers[0].match(/\d+(?=m)/g) == null) ? 0 : layovers[0].match(/\d+(?=m)/g)[0]
+        //     }           
+        //     //     console.log(x);
+        //     // } 
+        //     // let hh =(x.match(/\d+(?=h)/g) == !null) ? x.match(/\d+(?=h)/g) : 0
+        //     // let mm =(x.match(/\d+(?=m)/g) == !null) ? x.match(/\d+(?=m)/g) : 0
+        //     // console.log(calculate_arrival_date(_day1, hh, mm));
+        
+        // } catch (error) {
+        // // console.log('Direct flight!');   
+        // console.log(error);   
+        // }
         
 
         
@@ -436,9 +500,9 @@ function sell (schedule)
 
     }
 
-    const testdict = {'elpepe':':vs  vs:', 'etsech':'):<vs  >:(vs'}
-    const testlist = testdict['elpepe'].match(/vs/g).join().match(/s/g)
-    console.log(testlist);
+    // const testdict = {'elpepe':':vs  vs:', 'etsech':'):<vs  >:(vs'}
+    // const testlist = testdict['elpepe'].match(/vs/g).join().match(/s/g)
+    // console.log(testlist);
     
     
 
