@@ -330,7 +330,7 @@ function sell (schedule)
         const _layovers     = schedule.match(layovers)
         const _date1        = schedule.match(date1)
         const _day1         = _date1[0].match(/[A-Z][a-z][a-z] \d+/)[0]
-        //const _day1         = `${_date1.join().match(/[A-Z][a-z][a-z] \d+/g)[0].split(' ')[1]} ${_date1.join().match(/[A-Z][a-z][a-z] \d+/g)[0].split(' ')[0]}` //.join().match(/s/g) // i.e.: 31 Mar
+
         const _date2        = schedule.match(date2)
               
 
@@ -373,20 +373,9 @@ function sell (schedule)
 
 
             return arrival_date//.toDateString()
-                
-                
 
-            // return days_until_arrival === 0
-            //     ? `${arrival_date.toDateString()} (no days added!)`
-            //     : arrival_date.toDateString()
         }      
-
-
-
-        //console.log(calculate_arrival_date(_day1, 22, 50))
-
-        // console.log(_departure);
-        
+       
         const firstdate = new Date(`${_day1} ${new Date().getFullYear()}`)
         const allDates = [firstdate]
         const finaldates = []
@@ -397,12 +386,7 @@ function sell (schedule)
             const hours     = []
             const mins      = []
             
-
-
             for (i in _layovers){
-                // console.log(_duration[i]);
-                // console.log(_layovers[i]);
-
                 hours.push(eval(`${(_duration[i].match(/\d+(?=h)/) == null) ? 0 : _duration[i].match(/\d+(?=h)/)} + ${(_layovers[i].match(/\d+(?=h)/)==null) ? 0 : _layovers[i].match(/\d+(?=h)/)}`)) //${_layovers[i]}
                 mins.push(eval(`${(_duration[i].match(/\d+(?=m)/) == null) ? 0 : _duration[i].match(/\d+(?=m)/)} + ${(_layovers[i].match(/\d+(?=m)/)==null) ? 0 : _layovers[i].match(/\d+(?=m)/)}`))
             }
@@ -417,19 +401,11 @@ function sell (schedule)
 
             console.log(allDates);
 
-            // console.log(allDates[1].toDateString())
-            // console.log(allDates[2].toDateString())
-            // console.log(allDates[3].toDateString())
-
-
             for (x of allDates){
                 let stem    = x.toDateString().match(/\w+ \d+/).join()
                 let branch  = stem.match(/\w+/).join()
-                let leaf    = stem.match(/\d+/).join()
-                
-                
+                let leaf    = stem.match(/\d+/).join()          
                 finaldates.push(`${leaf}${branch}`)
-                
             }
 
             console.log(finaldates);
@@ -437,12 +413,6 @@ function sell (schedule)
         } catch (error) {
             console.log(error);   
         }
-
-
-        
-        
-
-        
 
 
         let first_city  = 0
@@ -454,22 +424,14 @@ function sell (schedule)
             let f_al = _flight[i].match(/[a-zA-Z ]+/g).join('').substr(6, ).trim() //American Airlines
             let f_nb = _flight[i].match(/\d+/)
 
-            //output += `SS ${IATA_airlines[f_al]} ${f_nb} ${_cos[i][1]} ${_cities[first_city]}${_cities[second_city]}  ${_departure[i]} ${_arrival[i]} 1\n`
             output += `SS ${IATA_airlines[f_al]} ${f_nb} ${_cos[i][1]} ${finaldates[i]} ${_cities[first_city]}${_cities[second_city]} 1\n`
             first_city+=2
             second_city+=2
-            //output += `\u{02708}${allnbrs[i].toUpperCase()} ${alldates[i].toUpperCase()} ${allroutes[i].toUpperCase()} ${translate(allscheds[i].slice(0,4))} ${translate(allscheds[i].slice(5))}\n`
-
+            
         }
 
         return output
     
-        
-
-//vs. ${IATA_airlines['American Airlines']}`
-
-
-        
 
     }
 
