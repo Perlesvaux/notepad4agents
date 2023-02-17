@@ -372,7 +372,7 @@ function sell (schedule)
             // In case you think you entered a number when you didn't, I'll let you know if no days were added:
 
 
-            return arrival_date.toDateString()
+            return arrival_date//.toDateString()
                 
                 
 
@@ -388,13 +388,15 @@ function sell (schedule)
         // console.log(_departure);
         
         const firstdate = `${_day1} ${new Date().getFullYear()}`
-        let allDates = []
+        const allDates = [firstdate]
 
         
         try {
 
-            const hours  = []
-            const mins   = []
+            const hours     = []
+            const mins      = []
+            
+
 
             for (i in _layovers){
                 // console.log(_duration[i]);
@@ -407,67 +409,19 @@ function sell (schedule)
             console.log(hours);
             console.log(mins);
 
-            // let ih = 0
-            // let im = 0
-            // let ilh = 0
-            // let ilm = 0
-            
+            for (i in hours){
+                allDates.push(calculate_arrival_date(allDates[i], hours[i], mins[i]))
 
-            
-            // for (x in _duration[0].match(/\d+/g)) { 
-            // ih = (_duration[0].match(/\d+(?=h)/g) == null) ? 0 : _duration[0].match(/\d+(?=h)/g)[0]
-            // im = (_duration[0].match(/\d+(?=m)/g) == null) ? 0 : _duration[0].match(/\d+(?=m)/g)[0]
-            // }
+            }
 
-            
-            // try{
-            //     for (x in _layovers[0].match(/\d+/g)){
-            //         ilm = (_layovers[0].match(/\d+(?=m)/g) == null) ? 0 : layovers[0].match(/\d+(?=m)/g)[0]
-            //         ilh = (_layovers[0].match(/\d+(?=h)/g) == null) ? 0 : layovers[0].match(/\d+(?=h)/g)[0]
-            //     }
-
-            // }catch(err){
-            //     ilh = 0
-            //     ilm = 0
-            // }
-
-            // console.log( ih,im,ilh,ilm);
-            // allDates.push(calculate_arrival_date(firstdate, ih+ilh, im+ilm))
-            // console.log(allDates);
+            console.log(allDates);
             
         } catch (error) {
             console.log(error);   
         }
 
 
-        // try {
-
-        //     let hh = 0
-        //     let mm = 0
-        //     let hhh = 0
-        //     let mmm = 0
-
-        //     console.log(_duration.length , _layovers.length);
-
-        //     for (let x in _layovers) {
-        //         console.log(_layovers[x]);
-        //         hh = (_duration[0].match(/\d+(?=h)/g) == null) ? 0 : _duration[0].match(/\d+(?=h)/g)[0]
-        //         mm = (_duration[0].match(/\d+(?=m)/g) == null) ? 0 : _duration[0].match(/\d+(?=m)/g)[0]
-
-        //         console.log(_duration[x]);
-        //         hhh = (_layovers[0].match(/\d+(?=h)/g) == null) ? 0 : layovers[0].match(/\d+(?=h)/g)[0]
-        //         mmm = (_layovers[0].match(/\d+(?=m)/g) == null) ? 0 : layovers[0].match(/\d+(?=m)/g)[0]
-        //     }           
-        //     //     console.log(x);
-        //     // } 
-        //     // let hh =(x.match(/\d+(?=h)/g) == !null) ? x.match(/\d+(?=h)/g) : 0
-        //     // let mm =(x.match(/\d+(?=m)/g) == !null) ? x.match(/\d+(?=m)/g) : 0
-        //     // console.log(calculate_arrival_date(_day1, hh, mm));
         
-        // } catch (error) {
-        // // console.log('Direct flight!');   
-        // console.log(error);   
-        // }
         
 
         
