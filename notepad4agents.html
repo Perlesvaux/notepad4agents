@@ -769,7 +769,7 @@
             let f_al = _flight[i].match(/[a-zA-Z ]+/g).join('').substr(6, ).trim() //American Airlines
             let f_nb = _flight[i].match(/\d+/)
 
-            output += `SS ${IATA_airlines[f_al]} ${f_nb} ${_cos[i][1]} ${finaldates[i]} ${_cities[first_city]}${_cities[second_city]} 1\n`
+            output += `SS ${(IATA_airlines[f_al]) ? IATA_airlines[f_al] : f_al}${f_nb} ${_cos[i][1]} ${finaldates[i]} ${_cities[first_city]}${_cities[second_city]} 1\n`
             first_city+=2
             second_city+=2
             
