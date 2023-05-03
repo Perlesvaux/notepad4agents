@@ -1046,16 +1046,16 @@ Expedia.inc Customer Care`
       }
 
       .verbiageBtn{
-          width: 1.7rem;
+          width: 1.9rem;
           color: white;
           border-width: 0.5em;
           background-color: rgb(240, 111, 99);
           border-color: rgb(205, 101, 27);
       }
 
-      .verbiageBtn:hover{
+      #greetings:hover, #acknowledge:hover, #wait:hover, #askElse:hover, #warning:hover, #bye:hover{
           color: black;
-          background-color: yellow;
+          background-color: rgba(99, 165, 240, 0.438);
       }
 
       @keyframes copied {
@@ -1063,12 +1063,12 @@ Expedia.inc Customer Care`
           50% {border-color: rgb(89, 228, 119); background-color: greenyellow; color: black;}                
       }
 
-      #greetings, #acknowledge{
+      #greetings, #acknowledge, #wait{
           background-color: rgb(0, 170, 255);
           border-color: rgb(0, 141, 211);
       }
 
-      #wait, #warning, #bye{
+      #anythingElse , #warning, #bye{
           background-color: rgb(240, 111, 99);
           border-color: rgb(205, 101, 27);
       }
@@ -1252,6 +1252,24 @@ Expedia.inc Customer Care`
       </script>
   </div>
 
+
+  <div id="anythingElse">
+
+    <button id="askElse" class="verbiageBtn"><strong>❓</strong></button>
+
+    <script>
+        
+        let askElse = document.getElementById('askElse')
+        
+        askElse.addEventListener('click', ()=> 
+        {
+          navigator.clipboard.writeText("Let me know if there's something else I can help you with! \u{1F44D}")
+        })
+
+    </script>
+</div>
+
+
   <div id="farewell">
 
       <button id="bye" class="verbiageBtn"><strong>👋</strong></button>
@@ -1311,13 +1329,18 @@ Expedia.inc Customer Care`
               i.style.animationDuration = ''
 
 
-              setTimeout(function(){
+              setTimeout(()=>{
                   if (i.style.animationName == '')
                   {
                       i.style.animationName='copied'
                       i.style.animationDuration='1.2s'
                   }
               },1)
+
+              // setTimeout(()=>{
+              //           i.style.animationName = 'none'
+              //           // i.style.animationDuration = ''
+              //         ,2000})
 
           })
       })
