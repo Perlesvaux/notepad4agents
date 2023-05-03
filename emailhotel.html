@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <textarea name="input" id="input" cols="30" rows="10"></textarea>
+    <button id="waiverReq_change">🔀📨🛏️</button>
+    <button id="waiverReq_cancel">⛔📨🛏️</button>
+
+
+    
+
+    <script>
+        //Query selectors!
+        const input              = document.getElementById('input')
+        const waiverReq_change   = document.getElementById('waiverReq_change')
+        const waiverReq_cancel   = document.getElementById('waiverReq_cancel')
+
+        //Regex selectors! 
+        const CHECKIN  = /CHECK IN\n\n.*\n.*/g //list: 0 'Check in: 30 Jan 2023'
+        const CHECKOUT = /CHECK OUT\n\n.*\n.*/g //list: 0 'Check in: 22 Sep 2023'
+        const PROP_rgx = /PROPERTY\n\n.*/g //list: 0 'Property: Excalibur Hotel Las Vegas'
+        const NITES_rgx = /\d+ nigh/g //list: 0 '5 nigh'
+        const DATES_rgx = /\d+ \w+/g //list: 0 '01 Nov'
+        const HOTELID_rgx = /Hotel ID.*\n.*/g //list: 0 'Hotel ID: 01565787' // defaults to BookingID if None
+        const BOOKID_rgx = /Booking ID.*\n.*/g //list: 0 'Booking ID: 01565787'
+        const GUEST_rgx = /Traveler Information.*\n.*/g //list: 0 'Traveler Information: John Doe'
+        const NUMBERS_rgx = /\d+/g //literally, just numbers :v
+
+        waiverReq_change.addEventListener('click', ()=>{
+           const raw_text = input.value 
+        
+           const PROP    = raw_text.match(PROP_rgx)[0].replace('PROPERTY\n\n', '').trim()
+           const NITES   = raw_text.match(NITES_rgx)[0].replace('nigh', '').trim()
+           const GUEST   = raw_text.match(GUEST_rgx)[0].replace('Traveler Information','').trim()
+           const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
+           const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
+           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel ID:\n','').trim()
+           if (HOTELID == '') HOTELID = BOOKID
+           let nightS    = ''
+           if (NITES > 1) nightS = 's'
+           
+
+           console.log(PROP)
+           console.log(CHKIN, CHKOUT)
+           console.log(NITES);   
+           console.log(HOTELID)
+           console.log(BOOKID)  
+           console.log(GUEST)
+           
+           const change_dates_waiver = `Expedia.inc Itinerary XXXXXXX/${BOOKID} Amendment Request
+
+Dear ${PROP},
+
+Since our software can't complete this update, please accept this email as proof we agree to the following amendment, and any ensuing rate adjustment:
+
+Booking ID: ${BOOKID}
+Confirmation: ${HOTELID}
+Guest: ${GUEST}
+Original Check-in/out: ${CHKIN} - ${CHKOUT} (${NITES} Night${nightS})
+Amended Check-in/out: DDMMM-DDMMM (XX Nights)
+
+Please *REPLY* to this email with your verdict.
+
+Thanks in advance for your support.
+
+Best regards,
+Expedia.inc Customer Care`
+
+            navigator.clipboard.writeText(change_dates_waiver)
+        })
+
+        
+        waiverReq_cancel.addEventListener('click', ()=>{
+           const raw_text = input.value 
+        
+           const PROP    = raw_text.match(PROP_rgx)[0].replace('PROPERTY\n\n', '').trim()
+           const NITES   = raw_text.match(NITES_rgx)[0].replace('nigh', '').trim()
+           const GUEST   = raw_text.match(GUEST_rgx)[0].replace('Traveler Information','').trim()
+           const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
+           const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
+           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel ID:\n','').trim()
+           if (HOTELID == '') HOTELID = BOOKID
+           let nightS    = ''
+           if (NITES > 1) nightS = 's'
+           
+
+           console.log(PROP)
+           console.log(CHKIN, CHKOUT)
+           console.log(NITES);   
+           console.log(HOTELID)
+           console.log(BOOKID)  
+           console.log(GUEST)
+           
+           const cancel_dates_waiver = `Expedia.inc Itinerary XXXXXXX/${BOOKID} Cancellation Request
+
+Dear ${PROP},
+
+The travel plans of our mutual customer have changed unexpectedly. Due to the unforeseeable nature of this matter, we endorse this cancellation and kindly request your assistance in waiving any ensuing penalty fee.
+
+Booking ID: ${BOOKID}
+Confirmation: ${HOTELID}
+Guest: ${GUEST}
+Check-in/out: ${CHKIN} - ${CHKOUT} (${NITES} Night${nightS})
+
+Please *REPLY* to this email with your verdict.
+
+Thanks in advance for your support.
+
+Best regards,
+Expedia.inc Customer Care`
+
+            navigator.clipboard.writeText(cancel_dates_waiver)
+        })
+
+    </script>
+    
+</body>
+</html>
