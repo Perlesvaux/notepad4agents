@@ -363,15 +363,8 @@
     <div contenteditable="False" style="background-color: #0090ff; position: absolute; top: 22%; left:70%">
 
 
-      <pre name="OP" id="OP" placeholder="Awaiting orders..." rows="8" cols="80" class="verbiageBtn" style="background-color: #49a6e9; width: auto;"></pre>
+      <pre name='OP' id='OP' placeholder="Awaiting orders..." rows="8" cols="80" class="verbiageBtn" style="background-color: #49a6e9; width: auto;"></pre>
 
-      <script>
-
-        document.getElementById('OP').addEventListener('click', (e)=>{
-          navigator.clipboard.writeText(document.getElementById('OP').textContent)
-        })
-
-      </script>
     </div>
     
 
@@ -889,11 +882,23 @@
         const GUEST_rgx = /Traveler Information.*\n.*/g //list: 0 'Traveler Information: John Doe'
         const NUMBERS_rgx = /\d+/g //literally, just numbers :v
 
+        //Pop up message saying "copied to clipboard"
+
+        function copied_to_clipboard_msg(){
+          OP_.textContent = 'Check Clipboard! CTRL+V'
+            setTimeout(()=>{
+              OP_.textContent = ''
+            }, 1000)
+        }
+
+
 
         //See 'Sell()'
         selling.addEventListener('click',()=>{
           try {
-            OP_.textContent = sell(input_.value)  
+            //OP_.textContent = sell(input_.value)  
+            navigator.clipboard.writeText(sell(input_.value))
+            copied_to_clipboard_msg()
           } catch (error) {
             console.log(error);
           }
@@ -920,7 +925,9 @@
             {
                 try
                 {
-                    input_.value = flight(input_.value)
+                    //input_.value = flight(input_.value)
+                    navigator.clipboard.writeText(flight(input_.value))
+                    copied_to_clipboard_msg()
                 }
                 catch (error)
                 {
@@ -945,12 +952,12 @@
            if (NITES > 1) nightS = 's'
            
 
-           console.log(PROP)
-           console.log(CHKIN, CHKOUT)
-           console.log(NITES);   
-           console.log(HOTELID)
-           console.log(BOOKID)  
-           console.log(GUEST)
+          //  console.log(PROP)
+          //  console.log(CHKIN, CHKOUT)
+          //  console.log(NITES);   
+          //  console.log(HOTELID)
+          //  console.log(BOOKID)  
+          //  console.log(GUEST)
            
            const change_dates_waiver = `Expedia.inc Itinerary XXXXXXX/${BOOKID} Amendment Request
 
@@ -972,6 +979,7 @@ Best regards,
 Expedia.inc Customer Care`
 
             navigator.clipboard.writeText(change_dates_waiver)
+            copied_to_clipboard_msg()
         })
 
         
@@ -990,12 +998,12 @@ Expedia.inc Customer Care`
            if (NITES > 1) nightS = 's'
            
 
-           console.log(PROP)
-           console.log(CHKIN, CHKOUT)
-           console.log(NITES);   
-           console.log(HOTELID)
-           console.log(BOOKID)  
-           console.log(GUEST)
+          //  console.log(PROP)
+          //  console.log(CHKIN, CHKOUT)
+          //  console.log(NITES);   
+          //  console.log(HOTELID)
+          //  console.log(BOOKID)  
+          //  console.log(GUEST)
            
            const cancel_dates_waiver = `Expedia.inc Itinerary XXXXXXX/${BOOKID} Cancellation Request
 
@@ -1016,6 +1024,7 @@ Best regards,
 Expedia.inc Customer Care`
 
             navigator.clipboard.writeText(cancel_dates_waiver)
+            copied_to_clipboard_msg()
         })
 
 
@@ -1037,7 +1046,7 @@ Expedia.inc Customer Care`
       }
 
       .verbiageBtn{
-          width: 7rem;
+          width: 1.7rem;
           color: white;
           border-width: 0.5em;
           background-color: rgb(240, 111, 99);
@@ -1068,7 +1077,7 @@ Expedia.inc Customer Care`
 
   <div id="greet">
 
-          <button id="greetings" class="verbiageBtn"><strong>Greetings!</strong></button>
+          <button id="greetings" class="verbiageBtn"><strong>🤝</strong></button>
 
           <script>
               
@@ -1101,7 +1110,7 @@ Expedia.inc Customer Care`
 
   <div id="yessir">
            
-      <button id="acknowledge" class="verbiageBtn"><strong>Acknowledge!</strong></button>
+      <button id="acknowledge" class="verbiageBtn"><strong>👌</strong></button>
 
       <script>
 
@@ -1146,7 +1155,7 @@ Expedia.inc Customer Care`
 
   <div id="hold">
 
-      <button id="wait" class="verbiageBtn">  <strong>Wait!</strong>  </button>
+      <button id="wait" class="verbiageBtn">  <strong>⏱</strong>  </button>
 
       <script>
           
@@ -1208,7 +1217,7 @@ Expedia.inc Customer Care`
 
   <div id="warn">
 
-      <button id="warning" class="verbiageBtn"><strong>Warning!</strong></button>
+      <button id="warning" class="verbiageBtn"><strong>📢</strong></button>
 
       <script>
           
@@ -1245,7 +1254,7 @@ Expedia.inc Customer Care`
 
   <div id="farewell">
 
-      <button id="bye" class="verbiageBtn"><strong>Bye!</strong></button>
+      <button id="bye" class="verbiageBtn"><strong>👋</strong></button>
 
       <script>
           
@@ -1341,7 +1350,7 @@ Expedia.inc Customer Care`
   
   Screenshot: Shift+Ctrl+S (Edge &amp; Firefox) or Shift+Win+S 
   
-  Paste only text: CTRL+Shift+V " style="height: 279px; width: 771px; font-size: 16px;"></textarea>
+  Paste only text: CTRL+Shift+V " style="height: 279px; width: 771px; font-size: 16px; margin-left:20px"></textarea>
 
   <script>
     document.getElementById('clear-pink-notepad').addEventListener('click', ()=>{
