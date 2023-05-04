@@ -872,14 +872,14 @@
         const waiverReq_cancel   = document.getElementById('waiverReq_cancel')
 
         //Regex selectors! 
-        const CHECKIN  = /CHECK IN\n\n.*\n.*/g //list: 0 'Check in: 30 Jan 2023'
-        const CHECKOUT = /CHECK OUT\n\n.*\n.*/g //list: 0 'Check in: 22 Sep 2023'
-        const PROP_rgx = /PROPERTY\n\n.*/g //list: 0 'Property: Excalibur Hotel Las Vegas'
-        const NITES_rgx = /\d+ nigh/g //list: 0 '5 nigh'
-        const DATES_rgx = /\d+ \w+/g //list: 0 '01 Nov'
-        const HOTELID_rgx = /Hotel Confirmation ID\n.*/g //list: 0 'Hotel confirmation ID: 01565787' // defaults to BookingID if None
-        const BOOKID_rgx = /Booking ID.*\n.*/g //list: 0 'Booking ID: 01565787'
-        const GUEST_rgx = /Traveler Information.*\n.*/g //list: 0 'Traveler Information: John Doe'
+        const CHECKIN  = /CHECK IN[\n\w]+.*/gi //list: 0 'Check in: 30 Jan 2023'
+        const CHECKOUT = /CHECK OUT[\n\w]+.*/gi //list: 0 'Check in: 22 Sep 2023'
+        const PROP_rgx = /PROPERTY\n\n.*/gi //list: 0 'Property: Excalibur Hotel Las Vegas'
+        const NITES_rgx = /\d+ night[^(]\n/gi //list: 0 '5 nigh'
+        const DATES_rgx = /\d+ \w+/gi //list: 0 '01 Nov'
+        const HOTELID_rgx = /Hotel Confirmation ID[\n\w]+.*(?=\np)/gi //list: 0 'Hotel confirmation ID: 01565787' // defaults to BookingID if None
+        const BOOKID_rgx = /Booking ID[\n\w+]+.*(?=\nh)/gi //list: 0 'Booking ID: 01565787'
+        const GUEST_rgx = /Traveler Information[\n\w]+.*/gi //list: 0 'Traveler Information: John Doe' //if > 1 = multiple rooms
         const NUMBERS_rgx = /\d+/g //literally, just numbers :v
 
         //Pop up message saying "copied to clipboard"
@@ -940,13 +940,13 @@
         waiverReq_change.addEventListener('click', ()=>{
            const raw_text = input_.value 
         
-           const PROP    = raw_text.match(PROP_rgx)[0].replace('PROPERTY\n\n', '').trim()
-           const NITES   = raw_text.match(NITES_rgx)[0].replace('nigh', '').trim()
-           const GUEST   = raw_text.match(GUEST_rgx)[0].replace('Traveler Information','').trim()
+           const PROP    = raw_text.match(PROP_rgx)[0].replace(/.*PROPERTY\n\n/i, '').trim()
+           const NITES   = raw_text.match(NITES_rgx)[0].replace(/[a-z]+/i, '').trim()
+           const GUEST   = raw_text.match(GUEST_rgx)[0].replace(/.*Traveler Information\n/i,'').trim()
            const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
            const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
-           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
-           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel Confirmation ID\n','').trim()
+           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace(/.*Booking ID\n/i, '').trim()
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace(/.*Hotel Confirmation ID\n/i,'').trim()
            if (HOTELID == '') HOTELID = BOOKID
            let nightS    = ''
            if (NITES > 1) nightS = 's'
@@ -963,7 +963,7 @@
 
 Dear ${PROP},
 
-Since our software can't complete this update, please accept this email as proof we agree to the following amendment, and any ensuing rate adjustment:
+Since our software can't complete this update, please accept this email as proof we agree to the following amendment and any ensuing rate adjustment:
 
 Booking ID: ${BOOKID}
 Confirmation: ${HOTELID}
@@ -986,13 +986,13 @@ Expedia.inc Customer Care`
         waiverReq_cancel.addEventListener('click', ()=>{
            const raw_text = input_.value 
         
-           const PROP    = raw_text.match(PROP_rgx)[0].replace('PROPERTY\n\n', '').trim()
-           const NITES   = raw_text.match(NITES_rgx)[0].replace('nigh', '').trim()
-           const GUEST   = raw_text.match(GUEST_rgx)[0].replace('Traveler Information','').trim()
+           const PROP    = raw_text.match(PROP_rgx)[0].replace(/.*PROPERTY\n\n/i, '').trim()
+           const NITES   = raw_text.match(NITES_rgx)[0].replace(/[a-z]+/i, '').trim()
+           const GUEST   = raw_text.match(GUEST_rgx)[0].replace(/.*Traveler Information\n/i,'').trim()
            const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
            const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
-           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
-           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel Confirmation ID\n','').trim()
+           const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace(/.*Booking ID\n/i, '').trim()
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace(/.*Hotel Confirmation ID\n/i,'').trim()
            if (HOTELID == '') HOTELID = BOOKID
            let nightS    = ''
            if (NITES > 1) nightS = 's'

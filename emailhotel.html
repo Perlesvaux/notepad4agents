@@ -28,7 +28,7 @@
         const PROP_rgx = /PROPERTY\n\n.*/g //list: 0 'Property: Excalibur Hotel Las Vegas'
         const NITES_rgx = /\d+ nigh/g //list: 0 '5 nigh'
         const DATES_rgx = /\d+ \w+/g //list: 0 '01 Nov'
-        const HOTELID_rgx = /Hotel ID.*\n.*/g //list: 0 'Hotel ID: 01565787' // defaults to BookingID if None
+        const HOTELID_rgx = /Hotel Confirmation ID\n.*/g //list: 0 'Hotel confirmation ID: 01565787' // defaults to BookingID if None
         const BOOKID_rgx = /Booking ID.*\n.*/g //list: 0 'Booking ID: 01565787'
         const GUEST_rgx = /Traveler Information.*\n.*/g //list: 0 'Traveler Information: John Doe'
         const NUMBERS_rgx = /\d+/g //literally, just numbers :v
@@ -42,7 +42,7 @@
            const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
            const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
            const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
-           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel ID:\n','').trim()
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel Confirmation ID\n','').trim()
            if (HOTELID == '') HOTELID = BOOKID
            let nightS    = ''
            if (NITES > 1) nightS = 's'
@@ -87,7 +87,7 @@ Expedia.inc Customer Care`
            const CHKIN   = raw_text.match(CHECKIN)[0].match(DATES_rgx)[0].trim()
            const CHKOUT  = raw_text.match(CHECKOUT)[0].match(DATES_rgx)[0].trim()
            const BOOKID  = raw_text.match(BOOKID_rgx)[0].replace('Booking ID\n', '')
-           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel ID:\n','').trim()
+           let HOTELID = raw_text.match(HOTELID_rgx)[0].replace('Hotel Confirmation ID\n','').trim()
            if (HOTELID == '') HOTELID = BOOKID
            let nightS    = ''
            if (NITES > 1) nightS = 's'
