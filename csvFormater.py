@@ -13,12 +13,18 @@ with open('./output.csv', 'r') as fp:
 #each = {val[4]:val[2] for i, val in enumerate(contents)}
 
 #NK, Spirit Airlines, spirit.com, 18004337300
-each = [(val[4].lower(), val[2].lower(), val[-2].lower(), val[-1].lower()) for i, val in enumerate(contents)]
+each = [ [val[4].lower(), val[2].lower(), val[-2].lower(), val[-1].lower()] for i, val in enumerate(contents)]
 
 
-for i, val in enumerate(each):
-    if each[i][-1] != '':
-        print(val)
+#print them nicely :)
+# for i, val in enumerate(each):
+#     if each[i][-1] != '':
+#         print(val)
+
+
+filtered = [ [val[4].lower(), val[2].lower(), val[-2].lower(), val[-1].lower()] for i, val in enumerate(contents) if val[-1] != '']
+
+print(filtered)
 
 
 """
