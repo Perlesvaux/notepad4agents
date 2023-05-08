@@ -360,16 +360,21 @@
             <button id="bat_lcc_away">🏏</button>
             <!-- <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button> -->
         </div>
-        <textarea id="formattingFlight" placeholder="UA0123 11SEP MCOJFK 2359 0159" style="background-color: rgb(140, 221, 221); width: 314px; height: 142px; max-width: 323px; max-height: 300px;"></textarea>
+        <textarea id="cyanBox" placeholder="Turn meaningless strings into useful data!
+-Share flight details from Amadeus
+-Sell flights found online on Amadeus
+-hotel-change email request
+-hotel-cancellation email request
+-Refer customer to LCC" style="background-color: rgb(140, 221, 221); width: 314px; height: 142px; max-width: 323px; max-height: 300px;"></textarea>
 
         
         
     </div>
 
-    <div contenteditable="False" style="background-color: #0090ff; position: absolute; top: 22%; left:70%">
+    <div name='OP' id='OP' contenteditable="False" style="color:aliceblue ;background-color: #0090ff; position: absolute; top: 22%; left:70%; border-radius: 2px 3px 5px 7px;">
 
 
-      <pre name='OP' id='OP' placeholder="Awaiting orders..." rows="8" cols="80" class="verbiageBtn" style="background-color: #49a6e9; width: auto;"></pre>
+      <!-- <pre name='OP' id='OP' placeholder="Awaiting orders..." rows="8" cols="80" class="verbiageBtn" style="background-color: #49a6e9; width: auto;"></pre> -->
 
     </div>
     
@@ -841,7 +846,7 @@
             //let nbrs = /[0-9a-zA-Z][0-9a-zA-Z]\d+/g
             
             let nbrs = /[0-9a-zA-Z]{2}[ 0-9]+(?= [A-Z]{1} [0-9]{2}[A-Z]{3})/g // /[0-9a-zA-Z][0-9a-zA-Z][0-9][0-9][0-9][0-9]/g
-            let dates = /\d\d[a-zA-Z]+(?= . \w)/g // let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
+            let dates = /\d\d[a-zA-Z]+(?= \d \w)/g///\d\d[a-zA-Z]+(?= . \w)/g // let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
             let routes = /[A-Z]{6}(?= ..\d+)/g       // /[A-Z]{6}/g // /[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]/g
             let scheds = /[0-2][0-9][0-5][0-9][ ][0-2][0-9][0-5][0-9]/g
 
@@ -870,7 +875,7 @@
 
 
         // *** main ***
-        const input_             = document.getElementById('formattingFlight')
+        const input_             = document.getElementById('cyanBox')
         const closing_           = document.getElementById('closeSidePanel')
         const OP_                = document.getElementById('OP')      
         const selling            = document.getElementById('sell')
@@ -920,7 +925,7 @@
             OP_.textContent = ""
 
             //_output.value = ""
-            //t = Element("formattingFlight")
+            //t = Element("formattingFlight") //cyanBox
             
 
 
