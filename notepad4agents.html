@@ -361,6 +361,7 @@
             <!-- <button id="clear" type="button" name="button" class="is-danger" py-onclick="clearing()">❌</button> -->
         </div>
         <textarea id="cyanBox" placeholder="Turn meaningless strings into useful data!
+
 -Share flight details from Amadeus
 -Sell flights found online on Amadeus
 -hotel-change email request
@@ -857,10 +858,10 @@
             let allscheds = text.match(scheds)
 
 
-            console.log(allnbrs)
-            console.log(alldates)
-            console.log(allroutes)
-            console.log(allscheds)
+            // console.log(allnbrs)
+            // console.log(alldates)
+            // console.log(allroutes)
+            // console.log(allscheds)
 
             let output = ""
 
@@ -903,7 +904,12 @@
             }, 1000)
         }
 
-
+        function oops_error_msg(){
+          OP_.textContent = 'Review input and try again!'
+            setTimeout(()=>{
+              OP_.textContent = ''
+            }, 1000)
+        }
 
         //See 'Sell()'
         selling.addEventListener('click',()=>{
@@ -912,7 +918,8 @@
             navigator.clipboard.writeText(sell(input_.value))
             copied_to_clipboard_msg()
           } catch (error) {
-            console.log(error);
+            // console.log(error);
+            oops_error_msg()
           }
           
         })
@@ -932,24 +939,27 @@
         }
         )
 
-
+        //Oh! Here is where the "bread" button event listener was LOL...
         document.getElementById('formatFlight').addEventListener( 'click', (e)=>
             {
                 try
                 {
-                    //input_.value = flight(input_.value)
-                    navigator.clipboard.writeText(flight(input_.value))
-                    copied_to_clipboard_msg()
+                  //input_.value = flight(input_.value)
+                  navigator.clipboard.writeText(flight(input_.value))
+                  copied_to_clipboard_msg()
                 }
                 catch (error)
                 {
-                    console.log(error);
+                  // console.log(error);
+                  oops_error_msg()
                 }
             }
         )
 
 
         waiverReq_change.addEventListener('click', ()=>{
+          try
+          {
            const raw_text = input_.value 
         
            const PROP    = raw_text.match(PROP_rgx)[0].replace(/.*PROPERTY\n\n/i, '').trim()
@@ -984,10 +994,17 @@ Expedia.inc Customer Care`
 
             navigator.clipboard.writeText(change_dates_waiver)
             copied_to_clipboard_msg()
+          }
+            catch (error)
+          {
+            oops_error_msg()
+          }
         })
 
         
         waiverReq_cancel.addEventListener('click', ()=>{
+          try
+          {
            const raw_text = input_.value 
         
            const PROP    = raw_text.match(PROP_rgx)[0].replace(/.*PROPERTY\n\n/i, '').trim()
@@ -1022,6 +1039,11 @@ Expedia.inc Customer Care`
 
             navigator.clipboard.writeText(cancel_dates_waiver)
             copied_to_clipboard_msg()
+          }
+            catch (error)
+          {
+            oops_error_msg()
+          }
         })
 
 
@@ -1029,16 +1051,19 @@ Expedia.inc Customer Care`
 
         bat_lcc_away.addEventListener('click', ()=>{
 
+          try
+          {
+
           const PIECES_ = input_.value.split(' ')
           const PNR_in  = PIECES_.pop().trim()
           const LCC_in  = PIECES_.join(' ').trim().toLowerCase()
 
-          const LCC_db  = [['e5', 'air arabia egypt', 'airarabia.com', '600508001'], ['3o', 'air arabia maroc', 'airarabia.com', '600508001'], ['p4', 'air peace', 'flyairpeace.com', '234-700-359-24773223'], ['fn', 'fastjet', 'fastjet.com', '27(0)104480888'], ['5h', 'five forty aviation', 'fly540.com', '254722540540'], ['jx', 'jambojet', 'jambojet.com', '254203274545'], ['mn', 'kulula.com', 'kulula.com', '0027119210500'], ['je', 'mango airlines', 'flymango.com', '0027110866100'], ['fa', 'safair', 'flysafair.co.za', '0873570030'], ['aq', '9 air', '9air.com', '4001051999'], ['ak', 'air asia', 'airasia.com', '862066618855'], ['i5', 'air asia india', 'airindiaexpress.in', '918046676700'], ['jw', 'air asia japan', 'airasia.com', '81335277898'], ['d7', 'air asia x', 'airasia.com', '886277283080'], ['pa', 'air blue', 'airblue.com', '971600544540'], ['rs', 'air seoul', 'flyairseoul.com', '8218008100'], ['5j', 'cebu pacific air', 'cebupacificair.com', '81345781447'], ['pn', 'china west air', 'westair.cn', '861095373'], ['qg', 'citilink', 'citilink.co.id', '6231 99208709'], ['ze', 'eastar jet', 'eastarjet.com', '4018132460236'], ['g8', 'goair', 'flygofirst.com', '1800210099'], ['y5', 'golden myanmar airlines', 'gmairlines.com', '959977993000'], ['uo', 'hong kong express airways', 'hkexpress.com', '85264507068'], ['6e', 'indigo', 'goindigo.in', '91(0)1244352500'], ['7c', 'jeju air', 'jejuair.net', '15991500'], ['s2', 'jetkonnect', 'jetconnect.com', '916742596180'], ['jq', 'jetstar', 'jetstar.com', '0061396455999'], ['3k', 'jetstar asia airways', 'jetstar.com', '180016110280'], ['gk', 'jetstar japan', 'jetstar.com', '0570550538'], ['bl', 'jetstar pacific airlines', 'pacificairlines.com', '8402835473550'], ['lj', 'jin air', 'jinair.com', '8216006200'], ['jt', 'lion air', 'lionair.co.id', '6281119380888'], ['8l', 'lucky air', 'luckyair.net', '8687167095738'], ['od', 'malindo air', 'malindoair.com', '6281119380888'], ['dd', 'nok air', 'nokair.com', '6620888955'], ['xw', 'nokscoot airlines', 'flyscoot.com', '6531576434'], ['2p', 'pal express', 'philippineairlines.com/en', '6327775932'], ['dr', 'ruili airlines', 'rlair.net', '864000059999'], ['tz', 'scoot', 'flyscoot.com', '6531576434'], ['xo', 'seair international', 'flyseair.com', '6328490101'], ['bc', 'skymark airlines', 'skymark.co.jp', '81570039283'], ['9c', 'spring airlines', 'china-sss.com', '862195524'], ['ij', 'spring airlines japan', 'jp.ch.com', '862195524'], ['7g', 'starflyer', 'starflyer.jp', '81935554500'], ['fd', 'thai airasia', 'airasia.com', '6623159800'], ['xj', 'thai airasia x', 'airasia.com', '6623159800'], ['sl', 'thai lion air', 'lionair.co.id', '628041778899'], ['vz', 'thai vietjet air', 'vietjetair.com', '6620891909'], ['tt', 'tiger airways australia', 'tigerair.com.au', '61732952104'], ['tr', 'tigerair singapore', 'tigerair.com.au', '61732952104'], ['it', 'tigerair taiwan', 'tigerairtw.com', '886277531088'], ['jw', 'vanilla air', 'vanilla-air.com', '8867010103857'], ['vj', 'vietjet air', 'vietjetair.com', '8419001886'], ['va', 'virgin australia', 'virginaustralia.com/au/en/', '61732952296'], ['iw', 'wings air', 'lionair.co.id', '622163798000'], ['0b', 'blue air', 'blueairweb.com', '40753226688'], ['bv', 'blue panorama', ' www.blue-panorama.com', ' +390699503111'], ['co', 'cobalt aero', 'www.cobalt.aero', '35724000001'], ['de', 'condor flugdienst', 'www.condor.com', '4961716988920'], ['7h', 'corendon airlines', 'www.corendon.nl/airlines', '31237510606'], ['u2', 'easyjet', 'www.easyjet.com', '443303655454'], ['ds', 'easyjet switzerland', 'www.easyjet.com', '443303655454'], ['ew', 'eurowings', 'www.eurowings.com', '491806320320'], ['e2', 'eurowings europe', 'www.eurowings.com', '491806320320'], ['be', 'flybe', 'www.flybe.com', '442073080812'], ['2l', 'helvetic aiways', 'www.helvetic.com', '41442708500'], ['5k', 'hifly', 'www.hifly.aero', '351211143500'], ['ls', 'jet2.com', 'jet2.com', '443333000404'], ['ig', 'meridiana', 'www.meridiana.it', '39078952682'], ['hg', 'niki', 'www.flyniki.com', '43170073204'], ['dy', 'norwegian air shuttle', 'www.norwegian.com', '4721490015'], ['8q', 'onur air', 'www.onurair.com', '902124686687 '], ['h9', 'pegasus airlines', 'www.flypgs.com', '908502506777'], ['fr', 'ryanair', 'www.ryanair.com', '448712460002'], ['qs', 'smartwings', 'www.smartwings.com', '420284000611'], ['xq', 'sunexpress', 'www.sunexpress.com.tr', '902324440797'], ['xg', 'sunexpress deutschland', 'www.sunexpress.com.tr', '902324440797'], ['to', 'transavia france', 'www.transavia.com', '35227002728'], ['hv', 'transavia.com', 'www.transavia.com', '35227002728'], ['tb', 'tui fly belgium', 'www.tui.co.uk/flight', '443333365147'], ['v7', 'volotea', 'www.volotea.com', '34931220717'], ['vy', 'vueling', 'www.vueling.com', '34931518134 '], ['w6', 'wizz air', 'www.wizzair.com', '3617779300'], ['8z', 'wizz air bulgaria', 'www.wizzair.com', '3617779300'], ['wu', 'wizz air ukraine', 'www.wizzair.com', '3617779300'], ['ww', 'wow air', 'www.wowair.com', '3545903000'], ['ad', 'azul linheas aereas brazileiras', 'www.voeazul.com.br', '551140033255'], ['a7', 'calafia airlines', 'www.volaris.com', '525511028000'], ['ef', 'easy fly', 'www.easyjet.com', '443303655454'], ['g3', 'gol linheas aereas', 'www.voegol.com.br', '551121284850'], ['4o', 'interjet', 'www.interjet.com.mx', '528000112345'], ['h2', 'sky airline', 'www.skyairline.com/english', '56223525600'], ['vb', 'vivaaerobus', 'www.vivaaerobus.com', '528182150150'], ['fc', 'vivacolombia', 'www.vivaair.com', '5719005558989 '], ['y4', 'volaris', 'www.volaris.com', '525511028000'], ['q6', 'volaris costa rica', 'www.volaris.com', '525511028000'], ['g9', 'air arabia', 'www.airarabia.com', '97165580000'], ['9p', 'air arabia jordan', 'www.airarabia.com', '97165580000'], ['fz', 'flydubai', 'www.flydubai.com', '971600544445'], ['xy', 'flynas', 'www.flynas.com', '966920001234'], ['j9', 'jazeera airways', 'www.jazeeraairways.com', '96522282040'], ['r5', 'jordan aviation', 'www.jordanaviation.jo', '96265501760'], ['ov', 'salam air', 'www.salamair.com', '96824272222'], ['fl', 'air tran airways', 'www.airtran.com', '14073185600'], ['g4', 'allegiant air', 'www.allegiantair.com', '17028517300'], ['f8', 'flair airlines', 'www.flairair.ca', '12504915513'], ['f9', 'frontier airlines', 'www.flyfrontier.com', '18014019000'], ['b6', 'jetblue airways', 'www.jetblue.com', '18014492525'], ['wn', 'southwest airlines', 'www.southwest.com', '18004359792'], ['nk', 'spirit airlines', 'www.spirit.com', '18014012222'], ['sy', 'sun country airlines', 'www.suncountry.com', '18009246184'], ['wg', 'sunwing', 'www.flysunwing.com', '18777869464'], ['vx', 'virgin america', 'www.virginamerica.com', '16507627005'], ['ws', 'westjet airlines', 'www.westjet.com', '18889378538'], ['wr', 'westjet encore', 'www.westjet.com', '18442135230']]
+          const LCC_db  = [['e5', 'air arabia egypt', 'airarabia.com', '600508001'], ['3o', 'air arabia maroc', 'airarabia.com', '600508001'], ['p4', 'air peace', 'flyairpeace.com', '234-700-359-24773223'], ['fn', 'fastjet', 'fastjet.com', '27(0)104480888'], ['5h', 'five forty aviation', 'fly540.com', '254722540540'], ['jx', 'jambojet', 'jambojet.com', '254203274545'], ['mn', 'kulula.com', 'kulula.com', '0027119210500'], ['je', 'mango airlines', 'flymango.com', '0027110866100'], ['fa', 'safair', 'flysafair.co.za', '0873570030'], ['aq', '9 air', '9air.com', '4001051999'], ['ak', 'air asia', 'airasia.com', '862066618855'], ['i5', 'air asia india', 'airindiaexpress.in', '918046676700'], ['jw', 'air asia japan', 'airasia.com', '81335277898'], ['d7', 'air asia x', 'airasia.com', '886277283080'], ['pa', 'air blue', 'airblue.com', '971600544540'], ['rs', 'air seoul', 'flyairseoul.com', '8218008100'], ['5j', 'cebu pacific air', 'cebupacificair.com', '81345781447'], ['pn', 'china west air', 'westair.cn', '861095373'], ['qg', 'citilink', 'citilink.co.id', '6231 99208709'], ['ze', 'eastar jet', 'eastarjet.com', '4018132460236'], ['g8', 'goair', 'flygofirst.com', '1800210099'], ['y5', 'golden myanmar airlines', 'gmairlines.com', '959977993000'], ['uo', 'hong kong express airways', 'hkexpress.com', '85264507068'], ['6e', 'indigo', 'goindigo.in', '91(0)1244352500'], ['7c', 'jeju air', 'jejuair.net', '15991500'], ['s2', 'jetkonnect', 'jetconnect.com', '916742596180'], ['jq', 'jetstar', 'jetstar.com', '0061396455999'], ['3k', 'jetstar asia airways', 'jetstar.com', '180016110280'], ['gk', 'jetstar japan', 'jetstar.com', '0570550538'], ['bl', 'jetstar pacific airlines', 'pacificairlines.com', '8402835473550'], ['lj', 'jin air', 'jinair.com', '8216006200'], ['jt', 'lion air', 'lionair.co.id', '6281119380888'], ['8l', 'lucky air', 'luckyair.net', '8687167095738'], ['od', 'malindo air', 'malindoair.com', '6281119380888'], ['dd', 'nok air', 'nokair.com', '6620888955'], ['xw', 'nokscoot airlines', 'flyscoot.com', '6531576434'], ['2p', 'pal express', 'philippineairlines.com/en', '6327775932'], ['dr', 'ruili airlines', 'rlair.net', '864000059999'], ['tz', 'scoot', 'flyscoot.com', '6531576434'], ['xo', 'seair international', 'flyseair.com', '6328490101'], ['bc', 'skymark airlines', 'skymark.co.jp', '81570039283'], ['9c', 'spring airlines', 'china-sss.com', '862195524'], ['ij', 'spring airlines japan', 'jp.ch.com', '862195524'], ['7g', 'starflyer', 'starflyer.jp', '81935554500'], ['fd', 'thai airasia', 'airasia.com', '6623159800 (chat https://support.airasia.com/s/?language=en_GB)'], ['xj', 'thai airasia x', 'airasia.com', '6623159800'], ['sl', 'thai lion air', 'lionair.co.id', '628041778899'], ['vz', 'thai vietjet air', 'vietjetair.com', '6620891909'], ['tt', 'tiger airways australia', 'tigerair.com.au', '61732952104'], ['tr', 'tigerair singapore', 'tigerair.com.au', '61732952104'], ['it', 'tigerair taiwan', 'tigerairtw.com', '886277531088'], ['jw', 'vanilla air', 'vanilla-air.com', '8867010103857'], ['vj', 'vietjet air', 'vietjetair.com', '8419001886'], ['va', 'virgin australia', 'virginaustralia.com/au/en/', '61732952296'], ['iw', 'wings air', 'lionair.co.id', '622163798000'], ['0b', 'blue air', 'blueairweb.com', '40753226688'], ['bv', 'blue panorama', ' www.blue-panorama.com', ' +390699503111'], ['co', 'cobalt aero', 'www.cobalt.aero', '35724000001'], ['de', 'condor flugdienst', 'www.condor.com', '4961716988920'], ['7h', 'corendon airlines', 'www.corendon.nl/airlines', '31237510606'], ['u2', 'easyjet', 'www.easyjet.com', '443303655454 (chat https://www.easyjet.com/en/help/contact)'], ['ds', 'easyjet switzerland', 'www.easyjet.com', '443303655454'], ['ew', 'eurowings', 'www.eurowings.com', '491806320320'], ['e2', 'eurowings europe', 'www.eurowings.com', '491806320320'], ['be', 'flybe', 'www.flybe.com', '442073080812'], ['2l', 'helvetic aiways', 'www.helvetic.com', '41442708500'], ['5k', 'hifly', 'www.hifly.aero', '351211143500'], ['ls', 'jet2.com', 'jet2.com', '443333000404'], ['ig', 'meridiana', 'www.meridiana.it', '39078952682'], ['hg', 'niki', 'www.flyniki.com', '43170073204'], ['dy', 'norwegian air shuttle', 'www.norwegian.com', '4721490015'], ['8q', 'onur air', 'www.onurair.com', '902124686687 '], ['h9', 'pegasus airlines', 'www.flypgs.com', '908502506777'], ['fr', 'ryanair', 'www.ryanair.com', '448712460002'], ['qs', 'smartwings', 'www.smartwings.com', '420284000611'], ['xq', 'sunexpress', 'www.sunexpress.com.tr', '902324440797'], ['xg', 'sunexpress deutschland', 'www.sunexpress.com.tr', '902324440797'], ['to', 'transavia france', 'www.transavia.com', '35227002728'], ['hv', 'transavia.com', 'www.transavia.com', '35227002728'], ['tb', 'tui fly belgium', 'www.tui.co.uk/flight', '443333365147'], ['v7', 'volotea', 'www.volotea.com', '34931220717'], ['vy', 'vueling', 'www.vueling.com', '34931518134 '], ['w6', 'wizz air', 'www.wizzair.com', '3617779300'], ['8z', 'wizz air bulgaria', 'www.wizzair.com', '3617779300'], ['wu', 'wizz air ukraine', 'www.wizzair.com', '3617779300'], ['ww', 'wow air', 'www.wowair.com', '3545903000'], ['ad', 'azul linheas aereas brazileiras', 'www.voeazul.com.br', '551140033255'], ['a7', 'calafia airlines', 'www.volaris.com', '525511028000'], ['ef', 'easy fly', 'www.easyjet.com', '443303655454'], ['g3', 'gol linheas aereas', 'www.voegol.com.br', '551121284850'], ['4o', 'interjet', 'www.interjet.com.mx', '528000112345'], ['h2', 'sky airline', 'www.skyairline.com/english', '56223525600'], ['vb', 'vivaaerobus', 'www.vivaaerobus.com', '528182150150'], ['fc', 'vivacolombia', 'www.vivaair.com', '5719005558989 '], ['y4', 'volaris', 'www.volaris.com', '525511028000'], ['q6', 'volaris costa rica', 'www.volaris.com', '525511028000'], ['g9', 'air arabia', 'www.airarabia.com', '97165580000'], ['9p', 'air arabia jordan', 'www.airarabia.com', '97165580000'], ['fz', 'flydubai', 'www.flydubai.com', '971600544445'], ['xy', 'flynas', 'www.flynas.com', '966920001234'], ['j9', 'jazeera airways', 'www.jazeeraairways.com', '96522282040'], ['r5', 'jordan aviation', 'www.jordanaviation.jo', '96265501760'], ['ov', 'salam air', 'www.salamair.com', '96824272222'], ['fl', 'air tran airways', 'www.airtran.com', '14073185600'], ['g4', 'allegiant air', 'www.allegiantair.com', '17028517300'], ['f8', 'flair airlines', 'www.flairair.ca', '12504915513'], ['f9', 'frontier airlines', 'www.flyfrontier.com', '18014019000'], ['b6', 'jetblue airways', 'www.jetblue.com', '18014492525'], ['wn', 'southwest airlines', 'www.southwest.com', '18004359792'], ['nk', 'spirit airlines', 'www.spirit.com', '18014012222'], ['sy', 'sun country airlines', 'www.suncountry.com', '18009246184'], ['wg', 'sunwing', 'www.flysunwing.com', '18777869464'], ['vx', 'virgin america', 'www.virginamerica.com', '16507627005'], ['ws', 'westjet airlines', 'www.westjet.com', '18889378538'], ['wr', 'westjet encore', 'www.westjet.com', '18442135230'], ['ws', 'westjet', 'www.westjet.com', '18889378538'] ,['lv','level','flylevel.com', '34931226565 (chat https://www.flylevel.com/en/contact-us/help-center/#contact)'], ['fc', 'vivaair', 'www.vivaair.com', '18556520600'], ['nh', 'ana', 'www.ana.co.jp/en/us/', '18002359262']]
           
           let index = -1
           for (i in LCC_db){
             if (LCC_db[i][1] == LCC_in){
-              console.log(LCC_db[i][2]);
+              // console.log(LCC_db[i][2]);
               index = i
               break;
             }
@@ -1051,9 +1076,16 @@ Expedia.inc Customer Care`
 To modify this flight, please go to ${LCC_out[2]} and enter confirmation #: ${PNR_in.toUpperCase()}
 
 For further assistance, please contact ${LCC_out[3]}`
+          if(LCC_out[1] == '') { throw new Error('No airline entered!') }
+
             
           navigator.clipboard.writeText(OUTPUT_)
             copied_to_clipboard_msg()
+          }
+            catch (error)
+          {
+            oops_error_msg()
+          }
           })
 
 
