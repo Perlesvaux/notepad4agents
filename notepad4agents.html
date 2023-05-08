@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///run/user/1000/doc/fb722a00/notepad4agents.html -->
-<html contenteditable=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<html contenteditable="">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>📗 notepad🍀agents</title>
+  
   
 
   <style media="screen">
@@ -327,7 +331,8 @@
   </style>
 
 <!-- may delete this later  -->
-<!-- <script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="./notepad4agents_files/pyodide.js"></script></head> -->
+<!-- <script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="file:///run/user/1000/doc/fb722a00/notepad4agents_files/pyodide.js"></script><script src="./notepad4agents_files/pyodide.js"></script>-->
+</head> 
 
 
 <body>
@@ -836,7 +841,7 @@
             //let nbrs = /[0-9a-zA-Z][0-9a-zA-Z]\d+/g
             
             let nbrs = /[0-9a-zA-Z]{2}[ 0-9]+(?= [A-Z]{1} [0-9]{2}[A-Z]{3})/g // /[0-9a-zA-Z][0-9a-zA-Z][0-9][0-9][0-9][0-9]/g
-            let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
+            let dates = /\d\d[a-zA-Z]+(?= . \w)/g // let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
             let routes = /[A-Z]{6}(?= ..\d+)/g       // /[A-Z]{6}/g // /[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]/g
             let scheds = /[0-2][0-9][0-5][0-9][ ][0-2][0-9][0-5][0-9]/g
 
@@ -1175,7 +1180,7 @@ For further assistance, please contact ${LCC_out[3]}`
 
   <div id="hold">
 
-      <button id="wait" class="verbiageBtn">  <strong>⏱</strong>  </button>
+      <button id="wait" class="verbiageBtn">  <strong>⏳</strong>  </button>
 
       <script>
           
