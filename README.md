@@ -15,6 +15,10 @@ Devised to make the life of Expedia agents easier!
 - AMADEUS long-sell entry
 - Request to have hotels waive penalties.
 
+#### Persistant data storage:
+- 10 slots to store your own FAQ
+- CTRL+S to save updates
+
 #### Randomized verbiages across 6x categories:
 - Greetings
 - Acknowledgement
