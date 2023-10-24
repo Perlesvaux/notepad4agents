@@ -1,5 +1,5 @@
 # notepad4agents
-Devised to make the life of Expedia agents easier!
+[Tool](https://perlesvaux.github.io/notepad4agents/) devised to make the work of Expedia agents easier!
 
 ## Features
 - Whiteboard (Resizable text, clear button)
