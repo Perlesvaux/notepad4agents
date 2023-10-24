@@ -7,9 +7,14 @@ Devised to make the life of Expedia agents easier!
 - Arithmetic Calculator
 - Time Calculator
 - Date always visible
-- clear & back-to-top buttons
+- Clear & back-to-top buttons
 
 ### Highlights
+#### Transformation panel. Turns input into:
+- Easy to read flight schedules
+- AMADEUS long-sell entry
+- Request to have hotels waive penalties.
+
 #### Randomized verbiages across 6x categories:
 - Greetings
 - Acknowledgement
@@ -17,8 +22,3 @@ Devised to make the life of Expedia agents easier!
 - Disconnection warning
 - Additional request
 - Goodbye
-
-#### Transformation panel. Turns input into:
-- Easy to read flight schedules
-- Flight-sell GDS command
-- Request to have hotels waive penalties.
